@@ -33,9 +33,15 @@ class StudentTest extends TestCase
     public function testUpdateStudent()
     {
         $student = factory(\App\Student::class)->create();
+        $student->email =  'email_updated@dominio.com.br';
+        $param = [
+            'status' => true,
+            'result' =>  $student->toArray(),
+            'errors' => []
+        ];
         $toUpdate = ['email' => 'email_updated@dominio.com.br'];
         $response = $this->json('PUT', '/api/students/'.$student->id, $toUpdate);
-        $response->assertStatus(201)->assertJson($toUpdate);
+        $response->assertStatus(201)->assertJson($param);
 
         Student::truncate();
     }
