@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('students')->group(function() {
     Route::get('/')->uses('StudentController@index');
-    Route::post('/')->use('StudentController@store');
-    Route::put('/{id}')->use('StudentController@update');
-    Route::delete('/{id}')->use('StudentController@destroy');
+    Route::post('/')->uses('StudentController@store');
+    Route::put('/{id}')->uses('StudentController@update')->where('id', '[0-9]+');
+    Route::delete('/{id}')->uses('StudentController@destroy')->where('id', '[0-9]+');
 });
