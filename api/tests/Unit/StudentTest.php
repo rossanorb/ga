@@ -26,4 +26,12 @@ class StudentTest extends TestCase
         // compara http status code e json
         $response->assertStatus(201)->assertJson($param);
     }
+
+    public function testUpdateStudent()
+    {
+        $student = factory(\App\Student::class)->create();
+        $toUpdate = ['email' => 'email_updated@dominio.com.br'];
+        $response = $this->json('PUT', '/api/students/'.$student->id, $toUpdate);
+        $response->assertStatus(201)->assertJson($toUpdate);
+    }
 }
