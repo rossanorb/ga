@@ -58,6 +58,23 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
+        try {
+            $student = Student::find($id);
+            if(!$student instanceof Student){
+                return $this->response(404);
+            }
 
+            $student->delete();
+
+            return $this->response(204);
+
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            array_push($this->response['errors'], [
+                'message' => '╰（‵□′）╯  Something went wrong!',
+                'description' => $e->getMessage()
+            ]);
+            return $this->response(500);
+        }
     }
 }
