@@ -31,7 +31,32 @@ class StudentController extends Controller
             $like = '%'.$like.'%';
         }
 
-        $result = Student::orderBy($order, $by)->paginate($limit);
+        $result = Student::orderBy($order, $by)
+            ->orWhere(function($query) use ($like){
+                if($like){
+                    return $query->where('name', 'like', $like);
+                }
+                return $query;
+            })
+            ->orWhere(function($query) use ($like){
+                if($like){
+                    return $query->where('email', 'like', $like);
+                }
+                return $query;
+            })
+            ->orWhere(function($query) use ($like){
+                if($like){
+                    return $query->where('ra', 'like', $like);
+                }
+                return $query;
+            })
+            ->orWhere(function($query) use ($like){
+                if($like){
+                    return $query->where('cpf', 'like', $like);
+                }
+                return $query;
+            })
+            ->paginate($limit);
 
         return response()->json($result);
     }
