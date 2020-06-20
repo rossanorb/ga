@@ -45,4 +45,11 @@ class StudentTest extends TestCase
 
         Student::truncate();
     }
+
+    public function testDeleteStutend()
+    {
+        $student = factory(\App\Student::class)->create();
+        $response = $this->json('DELETE', '/api/students/'.$student->id);
+        $response->assertStatus(204);
+    }
 }
