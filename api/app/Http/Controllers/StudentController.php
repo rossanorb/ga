@@ -7,9 +7,33 @@ use App\Student;
 
 class StudentController extends Controller
 {
-    public function index()
-    {
+    private $order = ['name', 'email'];
+    private $by = ['asc', 'desc'];
 
+    public function index(Request $request)
+    {
+        $request = $request->all();
+
+        $order = $request['order'] ?? 'id';
+        $by = $request['by'] ?? 'asc';
+        $like = $request['like'] ?? null;
+        $limit = $request['limit'] ?? 100;
+
+        if(!\in_array( $order, $this->order)){
+            $order = 'id';
+        }
+
+        if(!\in_array( $by, $this->by)){
+            $by = 'asc';
+        }
+
+        if($like){
+            $like = '%'.$like.'%';
+        }
+
+        $result = Student::orderBy($order, $by)->paginate($limit);
+
+        return response()->json($result);
     }
 
     public function store(Request $request)
