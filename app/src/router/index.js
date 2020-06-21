@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import DashBoard from '../views/DashBoard.vue'
+import Listing from '../views/Listing.vue'
 
 Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    name: 'Dashboard',
-    component: DashBoard
+    name: 'Listing',
+    component: Listing
 }]
 
 const router = new VueRouter({
