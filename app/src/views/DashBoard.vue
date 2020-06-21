@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard">
+      <h1>Hello, I'm the Front-End !</h1>
   </div>
 </template>
 
