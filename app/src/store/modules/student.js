@@ -1,10 +1,28 @@
-const state = {}
+import api from './../../api/student';
 
-const getters = {}
+const state = {
+    students: []
+};
 
-const mutations = {}
+const getters = {};
 
-const actions = {}
+const mutations = {
+    setStudents(state, students) {
+        console.log(students);
+        state.students = students;
+    }
+};
+
+const actions = {
+    list({ commit, dispatch }) {
+        api.list()
+            .then(students => {
+                if (students.status) {
+                    commit('setStudents', students.result);
+                }
+            });
+    }
+};
 
 export default {
     namespaced: true,
@@ -12,4 +30,4 @@ export default {
     getters,
     actions,
     mutations
-}
+};
