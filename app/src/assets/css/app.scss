@@ -8,6 +8,13 @@
   	height: 100%;
   }
 
+  body, ul,li, section, header {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: middle;
+	}
+
   #wrapper {
   	display: -webkit-box;
   	display: -ms-flexbox;
