@@ -25,7 +25,7 @@
   		background: #292929;
   		border: 1px solid #292929;
   		height: 100%;
-  		width: 200px;
+  		width: 340;
   		-webkit-box-orient: vertical;
   		-webkit-box-direction: normal;
   		-ms-flex-direction: column;
@@ -37,6 +37,7 @@
 
 		ul li {
 			padding: 15px;
+			cursor: pointer;
 		}
 
 		ul li a {
@@ -46,7 +47,7 @@
 		}
 
 		ul li:hover {
-			background: #222222;
+			background: #0db6dd;
 		}
 
 		ul .user h4 {
