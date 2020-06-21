@@ -9,6 +9,8 @@ services:
             - /app/node_modules
         ports:
             - "3000:3000"
+        depends_on:
+            - api
     api:
         container_name: "api"
         build:
@@ -16,6 +18,8 @@ services:
             #./api
         volumes:
             - ./api:/var/www:rw
+        depends_on:
+            - mysql
     nginx:
         container_name: "nginx"
         build: ./api/docker/nginx
