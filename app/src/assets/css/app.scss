@@ -8,12 +8,22 @@
   	height: 100%;
   }
 
-  body, ul,li, section, header {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: middle;
-	}
+  body,
+  ul,
+  li,
+  section,
+  header {
+  	margin: 0;
+  	padding: 0;
+  	border: 0;
+  	vertical-align: middle;
+  }
+
+  table {
+  	th {
+  		cursor: pointer;
+  	}
+  }
 
   #wrapper {
   	display: -webkit-box;
@@ -29,60 +39,62 @@
   		-webkit-box-orient: vertical;
   		-webkit-box-direction: normal;
   		-ms-flex-direction: column;
-		  flex-direction: column;
+  		flex-direction: column;
 
-		ul {
-			list-style: none;
-		}
+  		ul {
+  			list-style: none;
+  		}
 
-		ul li {
-			padding: 15px;
-			cursor: pointer;
-		}
+  		ul li {
+  			padding: 15px;
+  			cursor: pointer;
+  		}
 
-		ul li a {
-			color: #ffffff;
-			text-decoration: none;
-			font-size: 16px;
-		}
+  		ul li a {
+  			color: #ffffff;
+  			text-decoration: none;
+  			font-size: 16px;
+  		}
 
-		ul li:hover {
-			background: #0db6dd;
-		}
+  		ul li:hover {
+  			background: #0db6dd;
+  		}
 
-		ul .user h4 {
-			color: #ffffff;
-			text-align: center;
-		}
+  		ul .user h4 {
+  			color: #ffffff;
+  			text-align: center;
+  		}
 
-		ul .user:hover {
-			background: #292929;
-		}
-	  }
+  		ul .user:hover {
+  			background: #292929;
+  		}
+  	}
 
-	  main {
-		-webkit-box-flex: 1;
-		-ms-flex: 1;
-		flex: 1;
-		-webkit-box-orient: horizontal;
-		-webkit-box-direction: normal;
-		-ms-flex-direction: row;
-		flex-direction: row;
-		nav {
-			-webkit-box-flex: 1;
-			-ms-flex: 1;
-			flex: 1;
-			-webkit-box-orient: horizontal;
-			-webkit-box-direction: normal;
-			-ms-flex-direction: row;
-			flex-direction: row;
-			height: 65px;
-			background: #dedede;
-			h3 {
-				color: #292929;
-				font-size: 20px;
-				padding: 13px;
-			}
-		}
-	  }
+  	main {
+  		-webkit-box-flex: 1;
+  		-ms-flex: 1;
+  		flex: 1;
+  		-webkit-box-orient: horizontal;
+  		-webkit-box-direction: normal;
+  		-ms-flex-direction: row;
+  		flex-direction: row;
+
+  		nav {
+  			-webkit-box-flex: 1;
+  			-ms-flex: 1;
+  			flex: 1;
+  			-webkit-box-orient: horizontal;
+  			-webkit-box-direction: normal;
+  			-ms-flex-direction: row;
+  			flex-direction: row;
+  			height: 65px;
+  			background: #dedede;
+
+  			h3 {
+  				color: #292929;
+  				font-size: 20px;
+  				padding: 13px;
+  			}
+  		}
+  	}
   }
