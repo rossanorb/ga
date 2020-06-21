@@ -4,11 +4,9 @@
     <aside id="sidebar">
         <ul>
             <li class="user">
-                <h4>Rossano</h4>
+                <h4>Módulo Acadêmico</h4>
             </li>
-            <li><a href="">Item 1</a></li>
-            <li><a href="">Item 2</a></li>
-            <li><a href="">Item 3</a></li>
+            <li><a href="">Alunos</a></li>
         </ul>
     </aside>
 
