@@ -8,7 +8,6 @@ const getters = {};
 
 const mutations = {
     setStudents(state, students) {
-        console.log(students);
         state.students = students;
     }
 };

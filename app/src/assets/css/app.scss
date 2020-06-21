@@ -67,7 +67,7 @@
 
   		ul .user:hover {
   			background: #292929;
-  		}
+		}
   	}
 
   	main {
@@ -95,6 +95,19 @@
   				font-size: 20px;
   				padding: 13px;
   			}
-  		}
+		}
+
+		#listing {
+			table {
+				.btn-delete{
+					cursor: pointer;
+					color:red;
+				}
+				.btn-edit {
+					cursor: pointer;
+					color: blue;
+				}
+			}
+		}
   	}
   }

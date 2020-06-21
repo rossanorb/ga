@@ -29,12 +29,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1111656</td>
-                                <td>Otto</td>
-                                <th>E-mail</th>
-                                <td>999.999.999-99</td>
-                                <td>-</td>
+                            <tr v-for="student in students" :key="student.id">
+                                <td>{{student.ra}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.email}}</td>
+                                <td>{{student.cpf}}</td>
+                                <td>
+                                    <span class="btn-delete" >excluir</span> | <span class="btn-edit">editar</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -47,6 +49,7 @@
 
 <script>
 import IconCarteDown from '@/components/icons/Caretdown.vue';
+import { mapState } from 'vuex';
 export default {
     name: 'Dashboard',
     components: {
@@ -55,6 +58,9 @@ export default {
     },
     created() {
         this.$store.dispatch('student/list');
-    }
+    },
+    computed: mapState({
+        students: state => state.student.students
+    })
 };
 </script>
