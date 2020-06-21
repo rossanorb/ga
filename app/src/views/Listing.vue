@@ -25,7 +25,7 @@
                                 <th>Nome<span><IconCarteDown /></span></th>
                                 <th>E-mail<span><IconCarteDown /></span></th>
                                 <th>CPF<span><IconCarteDown /></span></th>
-                                <th>Ações<span><IconCarteDown /></span></th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,9 +34,7 @@
                                 <td>{{student.name}}</td>
                                 <td>{{student.email}}</td>
                                 <td>{{student.cpf}}</td>
-                                <td>
-                                    <span class="btn-delete" >excluir</span> | <span class="btn-edit">editar</span>
-                                </td>
+                                <td><span class="btn-delete" >excluir</span> | <span class="btn-edit">editar</span></td>
                             </tr>
                         </tbody>
                     </table>
