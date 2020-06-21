@@ -21,11 +21,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr class="table-secondary">
-                                <th>Registro Acadêmico</th>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>CPF</th>
-                                <th>Ações</th>
+                                <th>Registro Acadêmico<span><IconCarteDown /></span></th>
+                                <th>Nome<span><IconCarteDown /></span></th>
+                                <th>E-mail<span><IconCarteDown /></span></th>
+                                <th>CPF<span><IconCarteDown /></span></th>
+                                <th>Ações<span><IconCarteDown /></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,12 +46,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-
+import IconCarteDown from '@/components/icons/Caretdown.vue'
 export default {
     name: 'Dashboard',
     components: {
+        IconCarteDown
         // HelloWorld
     }
 }
