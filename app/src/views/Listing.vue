@@ -34,7 +34,9 @@
                                 <td>{{student.name}}</td>
                                 <td>{{student.email}}</td>
                                 <td>{{student.cpf}}</td>
-                                <td><span class="btn-delete" >excluir</span> | <span class="btn-edit">editar</span></td>
+                                <td><span class="btn-delete" >excluir</span> |
+                                <router-link :to="{ name: 'Update', params: { id: student.id }}">editar</router-link>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
