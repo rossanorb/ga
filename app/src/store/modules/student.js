@@ -1,24 +1,39 @@
 import api from './../../api/student';
 
 const state = {
-    students: []
+    students: [],
+    response: {}
 };
 
-const getters = {};
+const getters = {
+    response: (state) => {
+        console.log(state.response);
+        return state.response;
+    }
+};
 
 const mutations = {
     setStudents(state, students) {
         state.students = students;
+    },
+    setResponse(state, response) {
+        state.response = response;
     }
 };
 
 const actions = {
-    list({ commit, dispatch }) {
+    list({ commit }) {
         api.list()
             .then(students => {
                 if (students.status) {
                     commit('setStudents', students.result);
                 }
+            });
+    },
+    create({ commit }, student) {
+        api.create(student)
+            .then(response => {
+                commit('setResponse', response);
             });
     }
 };

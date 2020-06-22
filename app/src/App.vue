@@ -10,7 +10,6 @@
         </aside>
         <main>
             <nav>
-                <h3>Admin Template</h3>
             </nav>
             <router-view />
         </main>

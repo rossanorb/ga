@@ -11,11 +11,11 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-success btn-block">Cadastrar Aluno</button>
+                <router-link to="/novo" class="btn btn-success btn-block" >Cadastrar Aluno</router-link>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col">
                 <div class="table-responsive">
                     <table class="table table-striped">

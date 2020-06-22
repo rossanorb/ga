@@ -1,14 +1,22 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Listing from '../views/Listing.vue';
+import Create from '@/components/Create';
 
 Vue.use(VueRouter);
 
-const routes = [{
-    path: '/',
-    name: 'Listing',
-    component: Listing
-}];
+const routes = [
+    {
+        path: '/',
+        name: 'Listing',
+        component: Listing
+    },
+    {
+        path: '/novo',
+        name: 'Create',
+        component: Create
+    }
+];
 
 const router = new VueRouter({
     mode: 'history',

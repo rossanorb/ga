@@ -25,5 +25,29 @@ export default {
                 description: null
             };
         }
+    },
+    async create(student) {
+        try {
+            return await axios.post(`${apiBaseUrl}`, student)
+                .then((response) => {
+                    return {
+                        status: true,
+                        result: response.data
+                    };
+                })
+                .catch(err => {
+                    return {
+                        status: false,
+                        error: err.message,
+                        description: err.response.data.message
+                    };
+                });
+        } catch (error) {
+            return {
+                status: false,
+                error: error,
+                description: null
+            };
+        }
     }
 };
