@@ -61,6 +61,15 @@ class StudentController extends Controller
         return response()->json($result);
     }
 
+    public function show($id)
+    {
+        $result = Student::find($id);
+        if($result instanceof Student){
+            return response()->json($result);
+        }
+        return $this->response(404);
+    }
+
     public function store(Request $request)
     {
         $request = $request->all();

@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('students')->group(function() {
     Route::get('/')->uses('StudentController@index');
+    Route::get('/{id}')->uses('StudentController@show')->where('id', '[0-9]+');
     Route::post('/')->uses('StudentController@store');
     Route::put('/{id}')->uses('StudentController@update')->where('id', '[0-9]+');
     Route::delete('/{id}')->uses('StudentController@destroy')->where('id', '[0-9]+');
