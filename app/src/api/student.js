@@ -100,5 +100,30 @@ export default {
                 description: null
             };
         }
+    },
+
+    async delete(id) {
+        try {
+            return await axios.delete(`${apiBaseUrl}/${id}`)
+                .then((response) => {
+                    return {
+                        status: true,
+                        result: response.data
+                    };
+                })
+                .catch(err => {
+                    return {
+                        status: false,
+                        error: err.message,
+                        description: err.response.data.message
+                    };
+                });
+        } catch (error) {
+            return {
+                status: false,
+                error: error,
+                description: null
+            };
+        }
     }
 };

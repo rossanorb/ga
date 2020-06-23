@@ -34,7 +34,7 @@
                                 <td>{{student.name}}</td>
                                 <td>{{student.email}}</td>
                                 <td>{{student.cpf}}</td>
-                                <td><span class="btn-delete" >excluir</span> |
+                                <td><span class="btn-delete" v-on:click="destroy(student.id)" >excluir</span> |
                                 <router-link :to="{ name: 'Update', params: { id: student.id }}">editar</router-link>
                                 </td>
                             </tr>
@@ -61,6 +61,14 @@ export default {
     },
     computed: mapState({
         students: state => state.student.students
-    })
+    }),
+    methods: {
+        destroy(id) {
+            this.$store.dispatch('student/delete', id).then(() => {
+                alert('excluido com sucesso!');
+                this.$store.dispatch('student/list');
+            });
+        }
+    }
 };
 </script>

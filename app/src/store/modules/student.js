@@ -22,6 +22,7 @@ const mutations = {
 
 const actions = {
     list({ commit }) {
+        console.log('lista');
         api.list()
             .then(students => {
                 if (students.status) {
@@ -44,6 +45,13 @@ const actions = {
     update({ commit }, params) {
         api.update(params)
             .then(response => {
+                commit('setResponse', response);
+            });
+    },
+    delete({ commit }, id) {
+        api.delete(id)
+            .then(response => {
+                console.log(response);
                 commit('setResponse', response);
             });
     }
