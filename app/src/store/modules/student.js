@@ -51,7 +51,6 @@ const actions = {
     delete({ commit }, id) {
         api.delete(id)
             .then(response => {
-                console.log(response);
                 commit('setResponse', response);
             });
     }
