@@ -80,7 +80,7 @@ export default {
                 cpf: null
             },
             validated: false,
-            update: false
+            wasUpdated: false
         };
     },
     mounted() {
@@ -100,6 +100,10 @@ export default {
                 alert('Novo aluno adicionado com sucesso!');
                 this.$router.push('/');
             };
+            if (this.wasUpdated) {
+                alert('Aluno editado com sucesso!');
+                this.$router.push('/');
+            }
             if (this.id) {
                 this.form.name = this.response.result.name;
                 this.form.email = this.response.result.email;
@@ -136,6 +140,7 @@ export default {
 
                 if (this.id) {
                     this.$store.dispatch('student/update', { form: this.form, id: this.id });
+                    this.wasUpdated = true;
                 }
             }
         }
