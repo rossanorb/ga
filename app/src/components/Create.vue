@@ -5,17 +5,14 @@
         <!-- {{response}} -->
         <div class="row">
                 <div class="col-md-12">
-                    <form :class="{
-                        'needs-validation was-validated': validated == true,
-                        'needs-validation': validate = false
-                    }">
+                    <form>
                         <div class="form-group row">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Nome</div>
                                 </div>
-                                <input type="text" class="form-control" id="name" v-model="form.name" name="name" placeholder="Informe o nome completo" required="">
-                                <div class="invalid-feedback">O campo nome é obrigatório</div>
+                                <input type="text" class="form-control" id="name" v-model="form.name" name="name" placeholder="Informe o nome completo">
+                                <div :class="{'invalid-feedback': error.name == false,'invalid-feedback error': error.name == true}">Nome inválido</div>
                             </div>
                         </div>
 
@@ -24,8 +21,8 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">E-mail</div>
                                 </div>
-                                <input type="email" class="form-control" id="email" name="email" v-model="form.email" placeholder="Informe apenas um email" required="">
-                                <div class="invalid-feedback">Informe um email válido</div>
+                                <input type="email" class="form-control" id="email" name="email" v-model="form.email" placeholder="Informe apenas um email">
+                                <div :class="{'invalid-feedback': error.email == false,'invalid-feedback error': error.email == true}">Email inválido</div>
                             </div>
                         </div>
 
@@ -34,11 +31,10 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">RA</div>
                                 </div>
-                                <input type="text" class="form-control" id="ra" name="ra" v-model="form.ra" placeholder="Informe o registro acadêmico" pattern="\d*"
-                                    :required="this.id ? false : true"
+                                <input type="text" class="form-control" id="ra" name="ra" v-model="form.ra" maxlength="10" placeholder="Informe o registro acadêmico"
                                     :disabled="this.id ? true : false"
                                 >
-                                <div class="invalid-feedback">O campo registro acadêmico é obrigatório</div>
+                                <div :class="{'invalid-feedback': error.ra == false,'invalid-feedback error': error.ra == true}" >Registro acadêmico inválido</div>
                             </div>
                         </div>
 
@@ -47,11 +43,10 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">CPF</div>
                                 </div>
-                                <input type="text" class="form-control" id="cpf" name="cpf" v-model="form.cpf" placeholder="Informe o número do documento" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}"
+                                <input type="text" class="form-control" id="cpf" name="cpf" v-model="form.cpf" maxlength="14" placeholder="Informe o número do documento"
                                     :disabled="this.id ? true : false"
-                                    :required="this.id ? false : true"
                                 >
-                                <div class="invalid-feedback">Informe um CPF válido</div>
+                                <div :class="{'invalid-feedback': error.cpf == false,'invalid-feedback error': error.cpf == true}">CPF válido</div>
                             </div>
                         </div>
                    </form>
@@ -78,6 +73,12 @@ export default {
                 email: null,
                 ra: null,
                 cpf: null
+            },
+            error: {
+                name: false,
+                email: false,
+                cpf: false,
+                ra: false
             },
             validated: false,
             wasUpdated: false
@@ -115,17 +116,40 @@ export default {
     methods: {
         ...mapActions('student', ['find']),
         isValid() {
+            this.error = {
+                name: false,
+                email: false,
+                cpf: false,
+                ra: false
+            };
+
             if (!this.form.name) {
+                this.error.name = true;
                 return false;
             }
+
             if (!this.form.email) {
+                this.error.email = true;
                 return false;
             }
+            const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+            if (!this.form.email.match(mailformat)) {
+                this.error.email = true;
+                return false;
+            }
+
             if (!this.id) {
-                if (!this.form.ra) {
+                if (!this.form.ra || isNaN(this.form.ra)) {
+                    this.error.ra = true;
                     return false;
                 }
                 if (!this.form.cpf) {
+                    this.error.cpf = true;
+                    return false;
+                }
+                const cpfformat = /[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}/;
+                if (!this.form.cpf.match(cpfformat)) {
+                    this.error.cpf = true;
                     return false;
                 }
             }
@@ -139,6 +163,7 @@ export default {
                 }
 
                 if (this.id) {
+                    alert('enviar');
                     this.$store.dispatch('student/update', { form: this.form, id: this.id });
                     this.wasUpdated = true;
                 }

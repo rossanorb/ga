@@ -118,6 +118,12 @@
 			.input-group-text {
 				width: 10em;
 			}
+
+			form {
+				.error{
+					display: block;
+				}
+			}
 		}
   	}
   }
