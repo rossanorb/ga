@@ -163,7 +163,6 @@ export default {
                 }
 
                 if (this.id) {
-                    alert('enviar');
                     this.$store.dispatch('student/update', { form: this.form, id: this.id });
                     this.wasUpdated = true;
                 }
