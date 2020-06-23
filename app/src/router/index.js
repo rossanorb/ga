@@ -15,6 +15,12 @@ const routes = [
         path: '/novo',
         name: 'Create',
         component: Create
+    },
+    {
+        path: '/editar/:id',
+        props: true,
+        name: 'Update',
+        component: Create
     }
 ];
 

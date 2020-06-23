@@ -7,7 +7,6 @@ const state = {
 
 const getters = {
     response: (state) => {
-        console.log(state.response);
         return state.response;
     }
 };
@@ -32,6 +31,18 @@ const actions = {
     },
     create({ commit }, student) {
         api.create(student)
+            .then(response => {
+                commit('setResponse', response);
+            });
+    },
+    find({ commit }, id) {
+        api.find(id)
+            .then(response => {
+                commit('setResponse', response);
+            });
+    },
+    update({ commit }, params) {
+        api.update(params)
             .then(response => {
                 commit('setResponse', response);
             });

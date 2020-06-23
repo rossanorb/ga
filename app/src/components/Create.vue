@@ -1,6 +1,8 @@
 <template>
 <div id="edit">
     <div class="container mt-3">
+        <!-- {{ $route.params.id }} -->
+        <!-- {{response}} -->
         <div class="row">
                 <div class="col-md-12">
                     <form :class="{
@@ -32,7 +34,10 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">RA</div>
                                 </div>
-                                <input type="text" class="form-control" id="ra" name="ra" v-model="form.ra" placeholder="Informe o registro acadêmico" pattern="\d*" required="">
+                                <input type="text" class="form-control" id="ra" name="ra" v-model="form.ra" placeholder="Informe o registro acadêmico" pattern="\d*"
+                                    :required="this.id ? false : true"
+                                    :disabled="this.id ? true : false"
+                                >
                                 <div class="invalid-feedback">O campo registro acadêmico é obrigatório</div>
                             </div>
                         </div>
@@ -42,7 +47,10 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">CPF</div>
                                 </div>
-                                <input type="text" class="form-control" id="cpf" name="cpf" v-model="form.cpf" placeholder="Informe o número do documento" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required="">
+                                <input type="text" class="form-control" id="cpf" name="cpf" v-model="form.cpf" placeholder="Informe o número do documento" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}"
+                                    :disabled="this.id ? true : false"
+                                    :required="this.id ? false : true"
+                                >
                                 <div class="invalid-feedback">Informe um CPF válido</div>
                             </div>
                         </div>
@@ -60,13 +68,25 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
+    props: ['id'],
     data: function() {
         return {
-            form: {},
-            validated: false
+            form: {
+                name: null,
+                email: null,
+                ra: null,
+                cpf: null
+            },
+            validated: false,
+            update: false
         };
+    },
+    mounted() {
+        if (this.id) {
+            this.find(this.id);
+        }
     },
     computed: mapState({
         ...mapGetters('student', ['response'])
@@ -75,15 +95,21 @@ export default {
         response() {
             if (!this.response.status) {
                 alert('Ocorreu um Erro!');
-            }
-
-            if (this.response.status) {
-                alert('Novo usuario adicionado com sucesso!');
+            };
+            if (!this.id && this.response.status) {
+                alert('Novo aluno adicionado com sucesso!');
                 this.$router.push('/');
-            }
+            };
+            if (this.id) {
+                this.form.name = this.response.result.name;
+                this.form.email = this.response.result.email;
+                this.form.ra = this.response.result.ra;
+                this.form.cpf = this.response.result.cpf;
+            };
         }
     },
     methods: {
+        ...mapActions('student', ['find']),
         isValid() {
             if (!this.form.name) {
                 return false;
@@ -91,19 +117,26 @@ export default {
             if (!this.form.email) {
                 return false;
             }
-            if (!this.form.ra) {
-                return false;
+            if (!this.id) {
+                if (!this.form.ra) {
+                    return false;
+                }
+                if (!this.form.cpf) {
+                    return false;
+                }
             }
-            if (!this.form.cpf) {
-                return false;
-            }
-
             return true;
         },
         submit() {
             this.validated = true;
             if (this.isValid()) {
-                this.$store.dispatch('student/create', this.form);
+                if (!this.id) {
+                    this.$store.dispatch('student/create', this.form);
+                }
+
+                if (this.id) {
+                    this.$store.dispatch('student/update', { form: this.form, id: this.id });
+                }
             }
         }
     }
