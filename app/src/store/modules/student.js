@@ -22,7 +22,6 @@ const mutations = {
 
 const actions = {
     list({ commit }) {
-        console.log('lista');
         api.list()
             .then(students => {
                 if (students.status) {

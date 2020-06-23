@@ -2,7 +2,7 @@ import axios from 'axios';
 const apiBaseUrl = 'http://localhost:9001/api/students';
 
 export default {
-    async list(id) {
+    async list(id, queryString = '') {
         try {
             return await axios.get(`${apiBaseUrl}`)
                 .then((response) => {

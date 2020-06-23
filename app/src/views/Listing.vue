@@ -54,7 +54,6 @@ export default {
     name: 'Dashboard',
     components: {
         IconCarteDown
-        // HelloWorld
     },
     created() {
         this.$store.dispatch('student/list');
