@@ -52,6 +52,15 @@ const actions = {
             .then(response => {
                 commit('setResponse', response);
             });
+    },
+    filter({ commit }, queryString) {
+        console.log(queryString);
+        api.list(queryString)
+            .then(students => {
+                if (students.status) {
+                    commit('setStudents', students.result);
+                }
+            });
     }
 };
 

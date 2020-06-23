@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Digite sua busca" aria-label="Digite sua busca">
+                    <input type="text" v-model="search" class="form-control" placeholder="Digite sua busca" aria-label="Digite sua busca">
                     <div class="input-group-append">
-                        <button class="btn btn-primary">Pesquisar</button>
+                        <button class="btn btn-primary" @click="find(search)">Pesquisar</button>
                     </div>
                 </div>
             </div>
@@ -21,10 +21,10 @@
                     <table class="table table-striped">
                         <thead>
                             <tr class="table-secondary">
-                                <th>Registro Acadêmico<span><IconCarteDown /></span></th>
-                                <th>Nome<span><IconCarteDown /></span></th>
-                                <th>E-mail<span><IconCarteDown /></span></th>
-                                <th>CPF<span><IconCarteDown /></span></th>
+                                <th @click="sort('ra')">Registro Acadêmico<span><IconCarteDown /></span></th>
+                                <th @click="sort('name')">Nome<span><IconCarteDown /></span></th>
+                                <th @click="sort('email')">E-mail<span><IconCarteDown /></span></th>
+                                <th @click="sort('cpf')">CPF<span><IconCarteDown /></span></th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -44,6 +44,7 @@
             </div>
         </div>
     </div>
+    {{search}}
 </div>
 </template>
 
@@ -51,7 +52,13 @@
 import IconCarteDown from '@/components/icons/Caretdown.vue';
 import { mapState } from 'vuex';
 export default {
-    name: 'Dashboard',
+    name: 'List',
+    data: function() {
+        return {
+            search: '',
+            order: false
+        };
+    },
     components: {
         IconCarteDown
     },
@@ -67,6 +74,23 @@ export default {
                 alert('excluido com sucesso!');
                 this.$store.dispatch('student/list');
             });
+        },
+        find() {
+            const queryString = `?order=&by=&limit=&like=${this.search}`;
+            if (queryString.length > 2) {
+                this.$store.dispatch('student/filter', queryString);
+            }
+        },
+        sort(sort) {
+            let order = '';
+            this.order = !this.order;
+            if (this.order) {
+                order = 'asc';
+            } else {
+                order = 'desc';
+            }
+            const queryString = `?order=${sort}&by=${order}&limit=&like=${this.search}`;
+            this.$store.dispatch('student/filter', queryString);
         }
     }
 };
