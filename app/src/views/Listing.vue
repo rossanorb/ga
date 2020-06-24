@@ -76,7 +76,7 @@ export default {
         },
         find() {
             const queryString = `?order=&by=&limit=&like=${this.search}`;
-            if (queryString.length > 2) {
+            if (queryString.length > 0) {
                 this.$store.dispatch('student/filter', queryString);
             }
         },
