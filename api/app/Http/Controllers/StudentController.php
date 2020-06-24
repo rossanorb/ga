@@ -9,7 +9,7 @@ use App\Http\Services\ValidatorService;
 
 class StudentController extends Controller
 {
-    private $order = ['name', 'email'];
+    private $order = ['name', 'email','cpf', 'ra'];
     private $by = ['asc', 'desc'];
     private $apiService;
     private $validatorService;
