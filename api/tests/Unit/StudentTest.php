@@ -30,6 +30,18 @@ class StudentTest extends TestCase
         Student::truncate();
     }
 
+    public function testValidationStudent()
+    {
+        // cria um aluno
+        $data = factory(\App\Student::class)->make()->toArray();
+        // exclui campo name
+        $data = array_except($data, ['name']);
+        $response = $this->json('POST', 'api/students', $data);
+        // espera erro 422 - validação
+        $response->assertStatus(422);
+        Student::truncate();
+    }
+
     public function testUpdateStudent()
     {
         $student = factory(\App\Student::class)->create();
