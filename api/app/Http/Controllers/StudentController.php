@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Http\Services\ApiService;
+use App\Http\Services\ValidatorService;
 
 class StudentController extends Controller
 {
     private $order = ['name', 'email'];
     private $by = ['asc', 'desc'];
     private $apiService;
+    private $validatorService;
 
-    public function __construct(ApiService $apiService){
+    public function __construct(ApiService $apiService, ValidatorService $validatorService){
         $this->apiService = $apiService;
+        $this->validatorService = $validatorService;
     }
 
     public function index(Request $request)
@@ -83,6 +86,11 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request = $request->all();
+
+        if($this->validatorService->fails($request, 'store')) {
+            $this->apiService->setErrors($this->validatorService->getErrors());
+            return $this->apiService->response(422);
+        };
 
         try {
             $this->apiService->setResult(Student::create($request));
