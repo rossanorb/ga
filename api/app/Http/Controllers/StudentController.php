@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Student;
+use App\Http\Services\ApiService;
 
 class StudentController extends Controller
 {
     private $order = ['name', 'email'];
     private $by = ['asc', 'desc'];
+    private $apiService;
+
+    public function __construct(ApiService $apiService){
+        $this->apiService = $apiService;
+    }
 
     public function index(Request $request)
     {
@@ -58,16 +64,20 @@ class StudentController extends Controller
             })
             ->paginate($limit);
 
-        return response()->json($result);
+        $this->apiService->setResult($result);
+        $this->apiService->setStatus(true);
+        return $this->apiService->response();
     }
 
     public function show($id)
     {
         $result = Student::find($id);
         if($result instanceof Student){
-            return response()->json($result);
+            $this->apiService->setResult($result);
+            $this->apiService->setStatus(true);
+            return $this->apiService->response(201);
         }
-        return $this->response(404);
+        return $this->apiService->response(404);
     }
 
     public function store(Request $request)
@@ -75,17 +85,12 @@ class StudentController extends Controller
         $request = $request->all();
 
         try {
-            $this->response['result'] = Student::create($request);
-            $this->response['status'] = true;
-            return $this->response(201);
+            $this->apiService->setResult(Student::create($request));
+            $this->apiService->setStatus(true);
+            return $this->apiService->response(201);
 
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            array_push($this->response['errors'], [
-                'message' => '( ＾皿＾)っ Something went wrong!',
-                'description' => $e->getMessage()
-            ]);
-            return $this->response(500);
+            return $this->error($e);
         }
     }
 
@@ -94,23 +99,17 @@ class StudentController extends Controller
         try {
             $student = Student::find($id);
             if(!$student instanceof Student){
-                return $this->response(404);
+                return $this->apiService->response(404);
             }
 
             $inputs = $request->only(['name', 'email']);
             $student->update($inputs);
-            $this->response['status'] = true;
-            $this->response['result'] = $student;
-
-            return $this->response(201);
+            $this->apiService->setStatus(true);
+            $this->apiService->setResult($student);
+            return $this->apiService->response(201);
 
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            array_push($this->response['errors'], [
-                'message' => 'Something went wrong!',
-                'description' => $e->getMessage()
-            ]);
-            return $this->response(500);
+            return $this->error($e);
         }
     }
 
@@ -119,20 +118,24 @@ class StudentController extends Controller
         try {
             $student = Student::find($id);
             if(!$student instanceof Student){
-                return $this->response(404);
+                return $this->apiService->response(404);
             }
 
             $student->delete();
-
-            return $this->response(204);
+            return $this->apiService->response(204);
 
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            array_push($this->response['errors'], [
-                'message' => '╰（‵□′）╯  Something went wrong!',
-                'description' => $e->getMessage()
-            ]);
-            return $this->response(500);
+            return $this->error($e);
         }
+    }
+
+    private function error($e)
+    {
+        \Log::error($e->getMessage());
+        $this->apiService->setErrors([
+            'message' => '( ＾皿＾)っ Something went wrong!',
+            'description' => $e->getMessage()
+        ]);
+        return $this->apiService->response(500);
     }
 }
