@@ -8,7 +8,7 @@ export default {
                 .then((response) => {
                     return {
                         status: true,
-                        result: response.data.data
+                        result: response.data.result.data
                     };
                 })
                 .catch(err => {
@@ -33,7 +33,7 @@ export default {
                 .then((response) => {
                     return {
                         status: true,
-                        result: response.data
+                        result: response.data.result
                     };
                 })
                 .catch(err => {
