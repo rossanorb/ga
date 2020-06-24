@@ -78,7 +78,7 @@ class StudentController extends Controller
         if($result instanceof Student){
             $this->apiService->setResult($result);
             $this->apiService->setStatus(true);
-            return $this->apiService->response(201);
+            return $this->apiService->response(200);
         }
         return $this->apiService->response(404);
     }
