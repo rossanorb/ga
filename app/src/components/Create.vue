@@ -94,23 +94,37 @@ export default {
     }),
     watch: {
         response() {
-            if (!this.response.status) {
-                alert('Ocorreu um Erro!');
-            };
-            if (!this.id && this.response.status) {
-                alert('Novo aluno adicionado com sucesso!');
-                this.$router.push('/');
-            };
-            if (this.wasUpdated) {
-                alert('Aluno editado com sucesso!');
-                this.$router.push('/');
+            let errors = 'Ocorreu um Erro!';
+
+            const hasErrors = Object.prototype.hasOwnProperty.call(this.response.result, 'errors');
+
+            if (hasErrors) {
+                const cpf = Object.prototype.hasOwnProperty.call(this.response.result.errors, 'cpf');
+                if (cpf) {
+                    errors = this.response.result.errors.cpf;
+                }
             }
-            if (this.id) {
-                this.form.name = this.response.result.name;
-                this.form.email = this.response.result.email;
-                this.form.ra = this.response.result.ra;
-                this.form.cpf = this.response.result.cpf;
+
+            if (!this.response.status) {
+                alert(errors);
             };
+
+            if (this.response.status) {
+                if (!this.id && this.response.status) {
+                    alert('Novo aluno adicionado com sucesso!');
+                    this.$router.push('/');
+                };
+                if (this.wasUpdated) {
+                    alert('Aluno editado com sucesso!');
+                    this.$router.push('/');
+                }
+                if (this.id) {
+                    this.form.name = this.response.result.name;
+                    this.form.email = this.response.result.email;
+                    this.form.ra = this.response.result.ra;
+                    this.form.cpf = this.response.result.cpf;
+                };
+            }
         }
     },
     methods: {
@@ -123,10 +137,10 @@ export default {
                 ra: false
             };
 
-            if (!this.form.name) {
-                this.error.name = true;
-                return false;
-            }
+            // if (!this.form.name) {
+            //     this.error.name = true;
+            //     return false;
+            // }
 
             if (!this.form.email) {
                 this.error.email = true;

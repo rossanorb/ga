@@ -64,8 +64,7 @@ export default {
                 .catch(err => {
                     return {
                         status: false,
-                        error: err.message,
-                        description: err.response.data.message
+                        result: err.response.data
                     };
                 });
         } catch (error) {
@@ -89,8 +88,7 @@ export default {
                 .catch(err => {
                     return {
                         status: false,
-                        error: err.message,
-                        description: err.response.data.message
+                        result: err.response.data
                     };
                 });
         } catch (error) {
