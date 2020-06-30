@@ -137,10 +137,10 @@ export default {
                 ra: false
             };
 
-            // if (!this.form.name) {
-            //     this.error.name = true;
-            //     return false;
-            // }
+            if (!this.form.name) {
+                this.error.name = true;
+                return false;
+            }
 
             if (!this.form.email) {
                 this.error.email = true;
