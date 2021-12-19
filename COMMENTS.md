@@ -47,9 +47,9 @@
 
     api/public
 
-4) Acessar container api, digite no terminal:
+4) Acessar container ga_api, digite no terminal:
 
-    docker exec -it api bash
+    docker exec -it ga_api bash
 
 5) Ao entrar no prompt do container api dentro do docker, execute o seguinte comando para instalar dependências do Laravel
 
