@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:7.4
-      
+
     services:
        mysql:
         image: mysql:5.7
@@ -31,7 +31,7 @@ jobs:
     - name: Install Dependencies
       run: |
         cd api
-        composer install  
+        composer install
     - name: Generate key
       run: |
         cd api
@@ -40,7 +40,7 @@ jobs:
       run: chmod -R 777 api/storage api/bootstrap/cache
     - name: Create Database
       run: |
-        cd api      
+        cd api
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
