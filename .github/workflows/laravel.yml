@@ -28,10 +28,13 @@ jobs:
       run: chmod -R 777 api/storage api/bootstrap/cache
     - name: Create Database
       run: |
+        cd api      
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+      run: |
+        cd api
+        vendor/bin/phpunit
