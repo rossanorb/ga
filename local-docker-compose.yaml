@@ -1,0 +1,44 @@
+version: "3"
+services:
+    app:
+        container_name: "ga-app"
+        build:
+            ./app
+        volumes:
+            - ./app:/app:rw
+            - /app/node_modules
+        ports:
+            - "3000:3000"
+        depends_on:
+            - api
+    api:
+        container_name: "ga-api"
+        build:
+            ./api/docker/api
+            #./api
+        volumes:
+            - ./api:/var/www:rw
+        depends_on:
+            - mysql
+    nginx:
+        container_name: "ga-nginx"
+        build: ./api/docker/nginx
+        restart: unless-stopped
+        ports:
+            - "9001:80"
+        volumes:
+            - ./api:/var/www
+        depends_on:
+            - api
+    mysql:
+        container_name: "ga-mysql"
+        image: mysql:5.7.22
+        command: --innodb-use-native-aio=0
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./api/docker/dbdata:/var/lib/mysql"
+        environment:
+            MYSQL_DATABASE: api
+            MYSQL_ROOT_PASSWORD: root

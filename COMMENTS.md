@@ -72,6 +72,10 @@ A seguinte mensagem deve exibir:
 
     ./vendor/bin/phpunit --debug --verbose --color
 
+    ou
+
+    sudo docker exec ga-api ./vendor/bin/phpunit --debug --verbose --color
+
 A seguinte mensagem deve exibir:
 
     Runtime:       PHP 7.3.6
