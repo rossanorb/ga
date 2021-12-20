@@ -32,17 +32,15 @@ jobs:
       run: |
         cd api
         composer install
-    - name: Generate key
+    - name: Prepare Laravel Application
       run: |
         cd api
         php artisan key:generate
+        php artisan migrate
     - name: Directory Permissions
       run: chmod -R 777 api/storage api/bootstrap/cache
-    - name: Create Database
-      run: |
-        cd api
-        mkdir -p database
-        touch database/database.sqlite
+          
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: |
         cd api
