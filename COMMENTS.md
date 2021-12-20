@@ -28,18 +28,19 @@
         -- Para iniciar o docker entre na raiz do projeto e digite no terminal :
 
 # Procedimentos para executar a aplicação
+1) Renomear arquivo .env.example para .env que está dentro da pasta api
 
-1) Na raiz do projeto execute o seguinte comando no terminal:
+2) Na raiz do projeto execute o seguinte comando no terminal:
 
     docker-compose up
 
-2) Ao finalizar o processo de subir os containers devem ser exibidos 4 containers
+3) Ao finalizar o processo de subir os containers devem ser exibidos 4 containers
 
     app, nginx, api e mysql. Para verificar se os containers estão rodando execute no terminal:
 
     docker ps
 
-3) Dar permissão de escrita nas pastas :
+4) Dar permissão de escrita nas pastas :
 
     api/storage
 
@@ -47,15 +48,15 @@
 
     api/public
 
-4) Acessar container ga_api, digite no terminal:
+5) Acessar container ga_api, digite no terminal:
 
     docker exec -it ga_api bash
 
-5) Ao entrar no prompt do container api dentro do docker, execute o seguinte comando para instalar dependências do Laravel
+6) Ao entrar no prompt do container api dentro do docker, execute o seguinte comando para instalar dependências do Laravel
 
     composer install
 
-6) Terminada a instalação das dependências, execute o migration com o seguinte comando abaixo que irá criar as tabelas no banco:
+7) Terminada a instalação das dependências, execute o migration com o seguinte comando abaixo que irá criar as tabelas no banco:
 
     php artisan migrate
 
@@ -68,7 +69,7 @@ A seguinte mensagem deve exibir:
     Migrating: 2020_06_20_133423_create_students_table
     Migrated:  2020_06_20_133423_create_students_table
 
-7) Se às tabelas forem criadas com sucesso, já é possível executar testes unitários, para isso execute ainda dentro do container "api" o seguinte comando:
+8) Se às tabelas forem criadas com sucesso, já é possível executar testes unitários, para isso execute ainda dentro do container "api" o seguinte comando:
 
     ./vendor/bin/phpunit --debug --verbose --color
 
@@ -93,7 +94,7 @@ A seguinte mensagem deve exibir:
     Test 'Tests\Feature\ExampleTest::testBasicTest' ended
 
 
-8) A aplicação pode ser acessada pelo seguinte endereço:
+9) A aplicação pode ser acessada pelo seguinte endereço:
 
     http://localhost:3000/
 
