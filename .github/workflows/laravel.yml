@@ -57,4 +57,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: pwd
+        script: |
+            pwd 
+            sudo docker ps -a
+
