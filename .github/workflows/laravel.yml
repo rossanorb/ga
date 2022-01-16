@@ -61,7 +61,7 @@ jobs:
         ARGS: "-rltgoDzvO --exclude .env --exclude .docker --exclude .github"
         REMOTE_HOST: ${{ secrets.SSH_HOST }}
         REMOTE_USER: ${{ secrets.SSH_USER }}
-        TARGET: /home/${{ secrets.REMOTE_TARGET }}/ga
+        TARGET: /home/${{ secrets.SSH_USER }}/ga
         EXCLUDE: "/dist/, /node_modules/"
 
     - name: executing remote ssh commands using ssh key
